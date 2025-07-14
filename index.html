@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrackmyRise Live - Interactive Career Decision Tools</title>
+    <meta name="description" content="Transform your career with personalized, interactive decision trees. Get unstuck, accelerate growth, and make confident career moves with science-based tools.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a67d8;
+            --secondary: #764ba2;
+            --accent: #4facfe;
+            --success: #00c851;
+            --warning: #ffa726;
+            --danger: #ff6b6b;
+            --dark: #2d3748;
+            --gray-100: #f7fafc;
+            --gray-200: #edf2f7;
+            --gray-300: #e2e8f0;
+            --gray-700: #4a5568;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-200);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 2rem 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="white" opacity="0.1"><polygon points="0,0 1000,100 1000,0"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 2rem;
+            background: var(--gray-100);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--gray-700);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--gray-200);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .product-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-subtitle {
+            opacity: 0.9;
+        }
+
+        .product-body {
+            padding: 2rem;
+        }
+
+        .product-description {
+            color: var(--gray-700);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .product-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-features li:before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: var(--gray-100);
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .product-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .product-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: var(--gray-100);
+        }
+
+        .how-it-works-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .step p {
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .testimonial {
+            background: var(--gray-100);
+            padding: 2rem;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .testimonial:before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--primary);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-family: serif;
+        }
+
+        .testimonial-text {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            padding-top: 1rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .testimonial-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-info p {
+            color: var(--gray-700);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .final-cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .final-cta p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--gray-700);
+            margin-top: 2rem;
+            padding-top: 1rem;
+            text-align: center;
+            color: var(--gray-300);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-4 {
+            margin-bottom: 2rem;
+        }
+
+        .mt-4 {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">TrackmyRise Live</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Tools</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#testimonials">Success Stories</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#products" class="cta-button">Get Started</a>
+            <button class="mobile-menu-btn">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Stop Guessing. Start Growing.</h1>
+            <p>Transform your career with personalized, interactive decision trees that give you clarity, confidence, and a clear path forward.</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn-primary">
+                    🚀 Find Your Path
+                </a>
+                <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">10,000+</div>
+                <div class="stat-label">Professionals Guided</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Interactive Tools</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">90%</div>
+                <div class="stat-label">Report Clarity</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5 Min</div>
+                <div class="stat-label">Average Completion</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="products-container">
+            <div class="section-header">
+                <h2>Choose Your Navigator</h2>
+                <p>Each tool is designed to solve a specific career challenge with personalized, actionable guidance.</p>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Burnout Recovery -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-icon">🌱</div>
+                        <h3 class="product-title">Burnout Recovery Navigator</h3>
+                        <p class="product-subtitle">Get back to balance and energy</p>
+                    </div>
+                    <div class="product-body">
+                        <p class="product-description">Feeling exhausted and overwhelmed? This tool creates a personalized recovery plan based on your burnout level and situation.</p>
+                        <ul class="product-features">
+                            <li>Burnout severity assessment</li>
+                            <li>Immediate relief strategies</li>
+                            <li>Long-term prevention plan</li>
+                            <li>Recovery timeline roadmap</li>
+                        </ul>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$15</span>
+                        <a href="#" class="product-button">Get Navigator</a>
+                    </div>
+                </div>
+
+                <!-- Growth Catalyst -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-icon">🚀</div>
+                        <h3 class="product-title">Growth Catalyst Navigator</h3>
+                        <p class="product-subtitle">Break through your career ceiling</p>
+                    </div>
+                    <div class="product-body">
+                        <p class="product-description">Stuck in your career? This tool identifies your growth blockers and creates a personalized acceleration plan.</p>
+                        <ul class="product-features">
+                            <li>Growth potential assessment</li>
+                            <li>90-day sprint timeline</li>
+                            <li>Skills gap analysis</li>
+                            <li>Strategic action pathways</li>
+                        </ul>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$18</span>
+                        <a href="#" class="product-button">Get Navigator</a>
+                    </div>
+                </div>
+
+                <!-- Career Pivot -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-icon">🎯</div>
+                        <h3 class="product-title">Career Pivot Navigator</h3>
+                        <p class="product-subtitle">Make your next move with confidence</p>
+                    </div>
+                    <div class="product-body">
+                        <p class="product-description">Ready for change but not sure how? Get a strategic plan tailored to your risk tolerance and timeline.</p>
+                        <ul class="product-features">
+                            <li>Motivation assessment</li>
+                            <li>Risk-aligned strategies</li>
+                            <li>Timeline-based planning</li>
+                            <li>Learning style matching</li>
+                        </ul>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$15</span>
+                        <a href="#" class="product-button">Get Navigator</a>
+                    </div>
+                </div>
+
+                <!-- Salary Negotiation -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-icon">💰</div>
+                        <h3 class="product-title">Salary Negotiation Navigator</h3>
+                        <p class="product-subtitle">Get the compensation you deserve</p>
+                    </div>
+                    <div class="product-body">
+                        <p class="product-description">Underpaid and unsure how to ask for more? Build confidence with a personalized negotiation strategy.</p>
+                        <ul class="product-features">
+                            <li>Market value assessment</li>
+                            <li>Negotiation script templates</li>
+                            <li>Timing strategy guide</li>
+                            <li>Alternative compensation ideas</li>
+                        </ul>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$12</span>
+                        <a href="#" class="product-button">Get Navigator</a>
+                    </div>
+                </div>
+
+                <!-- Work-Life Balance -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-icon">⚖️</div>
+                        <h3 class="product-title">Work-Life Balance Navigator</h3>
+                        <p class="product-subtitle">Create sustainable boundaries</p>
+                    </div>
+                    <div class="product-body">
+                        <p class="product-description">Struggling to disconnect? Learn to set boundaries that protect your time and energy without hurting your career.</p>
+                        <ul class="product-features">
+                            <li>Boundary assessment quiz</li>
+                            <li>Personalized boundary strategies</li>
+                            <li>Communication templates</li>
+                            <li>Energy management plan</li>
+                        </ul>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$15</span>
+                        <a href="#" class="product-button">Get Navigator</a>
+                    </div>
+                </div>
+
+                <!-- Leadership Readiness -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-icon">👑</div>
+                        <h3 class="product-title">Leadership Readiness Navigator</h3>
+                        <p class="product-subtitle">Step confidently into leadership</p>
+                    </div>
+                    <div class="product-body">
+                        <p class="product-description">Ready to lead but not sure how to get there? Assess your readiness and create a development plan.</p>
+                        <ul class="product-features">
+                            <li>Leadership skills assessment</li>
+                            <li>Development gap analysis</li>
+                            <li>Influence building strategies</li>
+                            <li>Leadership opportunity mapping</li>
+                        </ul>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$18</span>
+                        <a href="#" class="product-button">Get Navigator</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bundle Offers -->
+            <div class="text-center mt-4">
+                <h3 style="margin-bottom: 2rem;">💫 Special Bundle Offers</h3>
+                <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                    <div style="background: var(--gray-100); padding: 1.5rem; border-radius: 12px; max-width: 300px;">
+                        <h4 style="color: var(--primary); margin-bottom: 1rem;">🔥 Stuck Professional Bundle</h4>
+                        <p style="margin-bottom: 1rem; color: var(--gray-700);">Growth + Burnout + Salary Navigation</p>
+                        <div style="display: flex; align-items: center; gap: 1rem; justify-content: center;">
+                            <span style="text-decoration: line-through; color: var(--gray-700);">$45</span>
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">$35</span>
+                        </div>
+                        <a href="#" style="display: inline-block; margin-top: 1rem;" class="product-button">Save $10</a>
+                    </div>
+                    <div style="background: var(--gray-100); padding: 1.5rem; border-radius: 12px; max-width: 300px;">
+                        <h4 style="color: var(--primary); margin-bottom: 1rem;">🎯 Complete Navigator Suite</h4>
+                        <p style="margin-bottom: 1rem; color: var(--gray-700);">All 6 tools for complete career mastery</p>
+                        <div style="display: flex; align-items: center; gap: 1rem; justify-content: center;">
+                            <span style="text-decoration: line-through; color: var(--gray-700);">$93</span>
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">$69</span>
+                        </div>
+                        <a href="#" style="display: inline-block; margin-top: 1rem;" class="product-button">Save $24</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="how-it-works-container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Get personalized career guidance in minutes, not months of uncertainty.</p>
+            </div>
+            
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Choose Your Challenge</h3>
+                    <p>Select the navigator that matches your current career challenge or goal.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Answer Smart Questions</h3>
+                    <p>Complete 5 strategic questions that adapt based on your unique situation.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Your Plan</h3>
+                    <p>Receive a personalized strategy with specific actions, timelines, and next steps.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Take Action</h3>
+                    <p>Use your downloadable plan to make confident career moves and track your progress.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="testimonials-container">
+            <div class="section-header">
+                <h2>Success Stories</h2>
+                <p>Real professionals sharing how our navigators transformed their careers.</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <p class="testimonial-text">The Growth Catalyst Navigator helped me identify exactly why I felt stuck. Within 90 days of following the plan, I landed a promotion I'd been chasing for 2 years!</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SM</div>
+                        <div class="testimonial-info">
+                            <h4>Sarah Martinez</h4>
+                            <p>Marketing Manager → Senior Marketing Director</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">I was completely burned out and considering quitting. The Burnout Recovery Navigator gave me a roadmap back to loving my work again. Game changer!</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">DK</div>
+                        <div class="testimonial-info">
+                            <h4>David Kim</h4>
+                            <p>Software Engineer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">The Career Pivot Navigator helped me transition from finance to UX design. The personalized plan made what seemed impossible feel achievable.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JR</div>
+                        <div class="testimonial-info">
+                            <h4>Jessica Rodriguez</h4>
+                            <p>Financial Analyst → UX Designer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">Used the Salary Negotiation Navigator before my annual review. Got a 22% raise! The scripts and timing advice were spot on.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MT</div>
+                        <div class="testimonial-info">
+                            <h4>Michael Thompson</h4>
+                            <p>Product Manager</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">Finally have work-life balance! The boundary strategies from the navigator helped me protect my time without damaging relationships at work.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AL</div>
+                        <div class="testimonial-info">
+                            <h4>Anna Lee</h4>
+                            <p>Consultant</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">The Leadership Readiness Navigator showed me exactly what skills I needed to develop. Now I'm confidently leading a team of 12.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">CJ</div>
+                        <div class="testimonial-info">
+                            <h4>Carlos Jimenez</h4>
+                            <p>Senior Developer → Engineering Manager</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="final-cta-container">
+            <h2>Ready to Transform Your Career?</h2>
+            <p>Join thousands of professionals who've found clarity and accelerated their growth with our interactive navigators.</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn-primary">
+                    🚀 Start Your Journey
+                </a>
+                <a href="mailto:hello@trackmyrise-live.com" class="btn-secondary">Get Help Choosing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>TrackmyRise Live</h4>
+                <p style="color: var(--gray-300); margin-bottom: 1rem;">Interactive career decision tools that give you clarity, confidence, and a clear path forward.</p>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="#" style="font-size: 1.5rem;">📧</a>
+                    <a href="#" style="font-size: 1.5rem;">💼</a>
+                    <a href="#" style="font-size: 1.5rem;">🐦</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Navigators</h4>
+                <ul>
+                    <li><a href="#">Burnout Recovery</a></li>
+                    <li><a href="#">Growth Catalyst</a></li>
+                    <li><a href="#">Career Pivot</a></li>
+                    <li><a href="#">Salary Negotiation</a></li>
+                    <li><a href="#">Work-Life Balance</a></li>
+                    <li><a href="#">Leadership Readiness</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                    <li><a href="#">Career Blog</a></li>
+                    <li><a href="#">Free Resources</a></li>
+                    <li><a href="#">Corporate Licensing</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 TrackmyRise Live. All rights reserved. Made with ❤️ for career growth.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.product-card, .step, .testimonial, .stat-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Stats counter animation
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString() + (target >= 1000 ? '+' : '');
+            }, 20);
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach((stat, index) => {
+                        const targets = [10000, 6, 90, 5];
+                        setTimeout(() => {
+                            animateCounter(stat, targets[index]);
+                        }, index * 200);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Form submission for CTAs (placeholder)
+        document.querySelectorAll('.cta-button, .btn-primary').forEach(button => {
+            button.addEventListener('click', (e) => {
+                if (button.getAttribute('href') === '#products') {
+                    // Let normal scroll behavior happen
+                    return;
+                }
+                e.preventDefault();
+                // Here you would integrate with your actual purchase/signup flow
+                alert('Ready to start your journey! This would redirect to your purchase flow.');
+            });
+        });
+
+        // Product button clicks
+        document.querySelectorAll('.product-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const productCard = button.closest('.product-card');
+                const productTitle = productCard.querySelector('.product-title').textContent;
+                // Here you would redirect to Gumroad or your checkout
+                alert(`Great choice! "${productTitle}" would redirect to secure checkout.`);
+            });
+        });
+
+        // Email validation for contact
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Newsletter signup (if you add one)
+        function handleNewsletterSignup(email) {
+            if (validateEmail(email)) {
+                // Integrate with your email service
+                console.log('Newsletter signup:', email);
+                return true;
+            }
+            return false;
+        }
+
+        // Add loading states for better UX
+        function addLoadingState(button) {
+            const originalText = button.textContent;
+            button.textContent = 'Loading...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 2000);
+        }
+
+        // Performance optimization: Lazy load images when you add them
+        function lazyLoadImages() {
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+        }
+
+        // Initialize lazy loading
+        lazyLoadImages();
+
+        // Add keyboard navigation support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                // Close any open modals/menus
+                navLinks.style.display = 'none';
+            }
+        });
+
+        // Add focus management for accessibility
+        document.querySelectorAll('a, button').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.style.outline = '2px solid var(--primary)';
+                this.style.outlineOffset = '2px';
+            });
+            
+            element.addEventListener('blur', function() {
+                this.style.outline = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
